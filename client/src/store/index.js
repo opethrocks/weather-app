@@ -89,8 +89,9 @@ export default new Vuex.Store({
       let city = payload.city;
       let state = payload.state;
       let country = payload.country;
+      const url = 'api/citySearch';
       axios
-        .post('http://localhost:5000', {
+        .post(url, {
           data: { city: city, state: state, country: country }
         })
         .then((response) => {
