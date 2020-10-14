@@ -56,18 +56,14 @@
           </div>
         </div>
       </transition>
-      <transition
-        name="fade"
-        enter-active-class="fadeDown"
-        leave-active-class="fadeDown"
-      >
-      </transition>
-      <forecast
-        :isActive="isActive"
-        :forecastWeather="forecastWeather"
-        :unitSelected="unitSelected"
-        :cityData="cityData"
-      />
+      <div class="flex-container">
+        <forecast
+          :isActive="isActive"
+          :forecastWeather="forecastWeather"
+          :unitSelected="unitSelected"
+          :cityData="cityData"
+        />
+      </div>
     </div>
   </div>
 </template>

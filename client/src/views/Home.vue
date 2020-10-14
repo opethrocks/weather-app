@@ -105,17 +105,19 @@
       </button>
     </div>
     <br />
-    <transition name="fade">
-      <div v-if="currentWeather">
-        <current-conditions
-          :forecastWeather="weatherForecast"
-          :currentWeather="currentWeather"
-          :unitSelected="selectedUnit"
-          :isActive="toggleForecast"
-          :cityData="currentCity.data"
-        />
-      </div>
-    </transition>
+    <div class="flex-container">
+      <transition name="fade">
+        <div v-if="currentWeather">
+          <current-conditions
+            :forecastWeather="weatherForecast"
+            :currentWeather="currentWeather"
+            :unitSelected="selectedUnit"
+            :isActive="toggleForecast"
+            :cityData="currentCity.data"
+          />
+        </div>
+      </transition>
+    </div>
   </div>
 </template>
 
