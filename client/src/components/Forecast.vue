@@ -15,6 +15,7 @@
             <font-awesome-icon icon="location-arrow" />
             {{ cityData[0].name }}, {{ cityData[0].country }}
           </p>
+
           <div class="flex-container">
             <div v-for="forecast in getForecast" :key="forecast.dt">
               <div
@@ -131,16 +132,12 @@ export default {
 <style scoped>
 .flex-container {
   display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-  grid-row-gap: 2em;
 }
 .flex-item {
   margin: 0.75em;
 }
 .box {
   border-radius: 2em;
-  width: 60em;
 }
 .button {
   margin: 1em;

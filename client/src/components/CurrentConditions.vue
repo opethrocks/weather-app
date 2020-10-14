@@ -141,7 +141,7 @@ export default {
   justify-content: center;
 }
 .box {
-  width: 45em;
+  padding: 2em 5em 1em 5em;
 }
 .capitalize {
   text-transform: capitalize;
