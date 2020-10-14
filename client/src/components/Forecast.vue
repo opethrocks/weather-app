@@ -132,12 +132,14 @@ export default {
 <style scoped>
 .flex-container {
   display: flex;
+  margin: 0.5em;
 }
 .flex-item {
   margin: 0.75em;
 }
 .box {
   border-radius: 2em;
+  margin: 1em;
 }
 .button {
   margin: 1em;
