@@ -20,13 +20,13 @@
               <div v-for="weather in forecast.weather" :key="weather.id">
                 <div class="flex-item">
                   <p
-                    class="has-text-weight-semibold is-size-5"
+                    class="has-text-weight-semibold is-size-6"
                     id="description"
                   >
                     {{ weather.description }}
                   </p>
                   <p
-                    class="has-text-weight-semibold is-size-5"
+                    class="has-text-weight-semibold is-size-6"
                     id="description"
                   >
                     <font-awesome-icon icon="thermometer-half" />
@@ -139,7 +139,7 @@ export default {
   justify-content: center;
 }
 .flex-item {
-  padding: 1em 1em 1em 1em;
+  padding: 0.75em 0.75em 0.75em 0.75em;
 }
 .box {
   border-radius: 2em;
