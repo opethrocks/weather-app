@@ -1,75 +1,75 @@
 <template>
   <div>
-    <div class="dropdown-container">
-      <div
-        class="dropdown is-left"
-        :class="{ 'is-active': activeStateDropdown }"
-        @click="toggleStateDropdown"
-      >
-        <div class="dropdown-trigger">
-          <button
-            class="button"
-            aria-haspopup="true"
-            aria-controls="dropdown-menu3"
-          >
-            <span>{{ stateCase(stateDropdownText) }}</span>
-            <span class="icon is-right" id="icon">
-              <i class="fa fa-angle-down"></i>
-            </span>
-          </button>
-        </div>
-        <div class="dropdown-menu" id="dropdown-menu3" role="menu">
-          <div class="dropdown-content" id="dropdown-flex">
-            <a
-              href="#"
-              class="dropdown-item"
-              :class="{ 'is-active': state.isActive }"
-              v-for="state in states"
-              :key="state.name"
-              @click="selectStateDropdownItem(state)"
-            >
-              {{ stateCase(state.name) }}
-            </a>
-          </div>
-        </div>
-      </div>
-      <h3 class="pl-2 pr-2 pt-1 is-size-5 has-text-weight-semibold">OR</h3>
-
-      <div
-        class="dropdown is-right"
-        :class="{ 'is-active': activeCountryDropdown }"
-        @click="toggleCountryDropdown"
-      >
-        <div class="dropdown-trigger">
-          <button
-            class="button"
-            aria-haspopup="true"
-            aria-controls="dropdown-menu3"
-          >
-            <span>{{ countryDropdownText }}</span>
-            <span class="icon is-right" id="icon">
-              <i class="fa fa-angle-down"></i>
-            </span>
-          </button>
-        </div>
-        <div class="dropdown-menu" id="dropdown-menu3" role="menu">
-          <div class="dropdown-content" id="dropdown-flex">
-            <a
-              href="#"
-              class="dropdown-item"
-              :class="{ 'is-active': country.isActive }"
-              v-for="country in countries"
-              :key="country.name"
-              @click="selectCountryDropdownItem(country)"
-            >
-              {{ country.name }}
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="flex-container">
+      <div class="dropdown-container">
+        <div
+          class="dropdown is-left"
+          :class="{ 'is-active': activeStateDropdown }"
+          @click="toggleStateDropdown"
+        >
+          <div class="dropdown-trigger">
+            <button
+              class="button"
+              aria-haspopup="true"
+              aria-controls="dropdown-menu3"
+            >
+              <span>{{ stateCase(stateDropdownText) }}</span>
+              <span class="icon is-right" id="icon">
+                <i class="fa fa-angle-down"></i>
+              </span>
+            </button>
+          </div>
+          <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+            <div class="dropdown-content" id="dropdown-flex">
+              <a
+                href="#"
+                class="dropdown-item"
+                :class="{ 'is-active': state.isActive }"
+                v-for="state in states"
+                :key="state.name"
+                @click="selectStateDropdownItem(state)"
+              >
+                {{ stateCase(state.name) }}
+              </a>
+            </div>
+          </div>
+        </div>
+        <h3 class="pl-2 pr-2 pt-1 is-size-5 has-text-weight-semibold">OR</h3>
+
+        <div
+          class="dropdown is-right"
+          :class="{ 'is-active': activeCountryDropdown }"
+          @click="toggleCountryDropdown"
+        >
+          <div class="dropdown-trigger">
+            <button
+              class="button"
+              aria-haspopup="true"
+              aria-controls="dropdown-menu3"
+            >
+              <span>{{ countryDropdownText }}</span>
+              <span class="icon is-right" id="icon">
+                <i class="fa fa-angle-down"></i>
+              </span>
+            </button>
+          </div>
+          <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+            <div class="dropdown-content" id="dropdown-flex">
+              <a
+                href="#"
+                class="dropdown-item"
+                :class="{ 'is-active': country.isActive }"
+                v-for="country in countries"
+                :key="country.name"
+                @click="selectCountryDropdownItem(country)"
+              >
+                {{ country.name }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="field" id="input">
         <div class="control has-icons-left has-icons-right">
           <input
@@ -87,25 +87,23 @@
           </span>
         </div>
       </div>
-    </div>
-    <div class="flex-container">
-      <button
-        class="button is-info is-small"
-        style="margin-top: 1em; margin-right: 1em"
-        @click="searchImperial"
-      >
-        Imperial
-      </button>
-      <button
-        class="button is-success is-small"
-        style="margin-top: 1em"
-        @click="searchMetric"
-      >
-        Metric
-      </button>
-    </div>
-    <br />
-    <div class="flex-container">
+      <div class="flex-item">
+        <button
+          class="button is-info is-small"
+          style="margin-top: 1em; margin-right: 1em"
+          @click="searchImperial"
+        >
+          Imperial
+        </button>
+        <button
+          class="button is-success is-small"
+          style="margin-top: 1em"
+          @click="searchMetric"
+        >
+          Metric
+        </button>
+      </div>
+      <br />
       <transition name="fade">
         <div v-if="currentWeather">
           <current-conditions
@@ -267,7 +265,11 @@ export default {
 <style scoped>
 .flex-container {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}
+.flex-item {
+  flex: 1;
 }
 #input {
   margin: 0.5em;
