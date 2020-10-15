@@ -139,7 +139,7 @@ export default {
   justify-content: center;
 }
 .flex-item {
-  margin: 1em 2em 1em 2em;
+  padding: 1em 1em 1em 1em;
 }
 .box {
   border-radius: 2em;
