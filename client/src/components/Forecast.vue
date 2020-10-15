@@ -132,7 +132,10 @@ export default {
 <style scoped>
 .flex-container {
   display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
   margin: 0.5em;
+  width: 800px;
 }
 .flex-item {
   margin: 0.75em;

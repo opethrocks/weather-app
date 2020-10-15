@@ -138,10 +138,9 @@ export default {
 <style scoped>
 .flex-container {
   display: flex;
-  justify-content: center;
 }
 .box {
-  margin: 1em;
+  padding: 2em 10em 2em 10em;
 }
 .capitalize {
   text-transform: capitalize;
