@@ -101,7 +101,7 @@ body {
 html,
 body,
 #map {
-  height: 90vh;
+  height: 83vh;
   width: 100vw;
 }
 </style>
