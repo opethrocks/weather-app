@@ -41,11 +41,11 @@
 
                   <p class="has-text-weight-semibold">
                     <font-awesome-icon icon="clock" />
-                    {{ formatTime(forecast.dt_txt) }}
+                    {{ formatTime(forecast.dt) }}
                   </p>
                   <p class="has-text-weight-semibold">
                     <font-awesome-icon icon="calendar-alt" />
-                    {{ formatDate(forecast.dt_txt) }}
+                    {{ formatDate(forecast.dt) }}
                   </p>
                 </div>
               </div>
@@ -102,13 +102,13 @@ export default {
       return '#' + (((1 << 24) * Math.random()) | 0).toString(16);
     },
     formatTime(time) {
-      return new Date(time).toLocaleTimeString([], {
+      return new Date(time * 1000).toLocaleTimeString([], {
         hour: '2-digit',
         minute: '2-digit'
       });
     },
     formatDate(date) {
-      return new Date(date).toLocaleDateString([], {
+      return new Date(date * 1000).toLocaleDateString([], {
         month: '2-digit',
         day: '2-digit'
       });
@@ -136,9 +136,10 @@ export default {
 .flex-container {
   display: flex;
   flex-flow: row wrap;
+  justify-content: center;
 }
 .flex-item {
-  margin: 1em 2em 1em 2em;
+  margin: 1em 1em 1em 1em;
 }
 .box {
   border-radius: 2em;
