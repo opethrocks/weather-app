@@ -171,6 +171,7 @@ export default {
 
     searchImperial() {
       let str = this.input
+        .trim()
         .toLowerCase()
         .split(' ')
         .map((word) => word[0].toUpperCase() + word.substr(1))
@@ -197,6 +198,7 @@ export default {
     },
     searchMetric() {
       let str = this.input
+        .trim()
         .toLowerCase()
         .split(' ')
         .map((word) => word[0].toUpperCase() + word.substr(1))
