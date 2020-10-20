@@ -10,7 +10,8 @@ export default new Vuex.Store({
     weatherForecast: null,
     selectedUnits: null,
     isForecastActive: false,
-    currentCity: null
+    currentCity: null,
+    autoComplete: null
   },
   mutations: {
     ADD_WEATHER(state, payload) {
@@ -32,6 +33,9 @@ export default new Vuex.Store({
     },
     ADD_CITY(state, payload) {
       state.currentCity = payload;
+    },
+    AUTO_COMPLETE(state, payload) {
+      state.autoComplete = payload;
     },
     TOGGLE_FORECAST(state) {
       state.isForecastActive === false
@@ -99,6 +103,28 @@ export default new Vuex.Store({
         })
         .catch((error) => alert(error.message));
     },
+    getAutoComplete({ commit }, payload) {
+      let input = payload.input;
+      let state = payload.state;
+      let country = payload.country;
+
+      axios({
+        method: 'GET',
+        url: 'api/autoComplete',
+        params: {
+          q: input,
+          state: state,
+          country: country
+        }
+      })
+        .then((response) => {
+          commit('AUTO_COMPLETE', response.data);
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    },
+
     toggleForecast({ commit }) {
       commit('TOGGLE_FORECAST');
     }
@@ -109,6 +135,7 @@ export default new Vuex.Store({
     weatherForecast: (state) => state.weatherForecast,
     selectedUnit: (state) => state.selectedUnits,
     toggleForecast: (state) => state.isForecastActive,
-    currentCity: (state) => state.currentCity
+    currentCity: (state) => state.currentCity,
+    autoCompleteData: (state) => state.autoComplete
   }
 });
