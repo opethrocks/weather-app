@@ -38,20 +38,15 @@ export default {
   name: 'InputComponent',
   data() {
     return {
-      isActive: false
+      isActive: false,
+      input: null
     };
   },
   props: {
     autoCompleteData: {
-      type: Object,
+      type: Array,
       default: () => {
-        null;
-      }
-    },
-    input: {
-      type: String,
-      default: () => {
-        '';
+        [];
       }
     }
   },

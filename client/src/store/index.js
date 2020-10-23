@@ -11,6 +11,16 @@ export default new Vuex.Store({
     selectedUnits: null,
     isForecastActive: false,
     currentCity: null,
+    cityCoords: {
+      city: 'Timbuktu',
+      country: 'ML',
+      coord: [
+        {
+          lon: -3.00742,
+          lat: 16.773479
+        }
+      ]
+    },
     autoComplete: null
   },
   mutations: {
@@ -41,6 +51,9 @@ export default new Vuex.Store({
       state.isForecastActive === false
         ? (state.isForecastActive = true)
         : (state.isForecastActive = false);
+    },
+    ADD_CITY_COORDS(state, payload) {
+      state.cityCoords = payload;
     }
   },
   actions: {
@@ -124,6 +137,9 @@ export default new Vuex.Store({
           alert(error.message);
         });
     },
+    addCityCoords({ commit }, payload) {
+      commit('ADD_CITY_COORDS', payload);
+    },
 
     toggleForecast({ commit }) {
       commit('TOGGLE_FORECAST');
@@ -136,6 +152,7 @@ export default new Vuex.Store({
     selectedUnit: (state) => state.selectedUnits,
     toggleForecast: (state) => state.isForecastActive,
     currentCity: (state) => state.currentCity,
-    autoCompleteData: (state) => state.autoComplete
+    autoCompleteData: (state) => state.autoComplete,
+    cityCoords: (state) => state.cityCoords
   }
 });

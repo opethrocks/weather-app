@@ -7,20 +7,20 @@
       />
       <input-component
         :autoCompleteData="autoCompleteData"
-        :input="input"
         @newInput="autoComplete"
         @selectCity="selectCity"
       />
       <div class="flex-item">
         <button
-          class="button is-info is-small"
+          class="button is-info is-rounded is-small"
           style="margin-top: 1em; margin-right: 1em"
           @click="searchImperial"
         >
           Imperial
         </button>
+
         <button
-          class="button is-success is-small"
+          class="button is-success is-rounded is-small"
           style="margin-top: 1em"
           @click="searchMetric"
         >
@@ -88,23 +88,19 @@ export default {
       'currentWeather',
       'weatherForecast',
       'addCity',
-      'getAutoComplete'
+      'getAutoComplete',
+      'addCityCoords'
     ]),
     ...mapActions({
       weather: 'currentWeather',
       forecast: 'weatherForecast',
       addCity: 'addCity',
-      getAc: 'getAutoComplete'
+      getAc: 'getAutoComplete',
+      coord: 'addCityCoords'
     }),
 
     searchImperial() {
-      let str = this.input
-        .trim()
-        .toLowerCase()
-        .split(' ')
-        .map((word) => word[0].toUpperCase() + word.substr(1))
-        .join(' ');
-      this.city = str;
+      this.city = this.input;
       this.units = 'imperial';
 
       this.addCity({
@@ -112,6 +108,7 @@ export default {
         state: this.state,
         country: this.country
       });
+
       setTimeout(() => {
         this.cityCode = this.getCityCode[0];
         this.weather({
@@ -122,16 +119,16 @@ export default {
           city: this.cityCode,
           unit: this.units
         });
+        this.coord({
+          coord: this.getCityCoords,
+          city: this.city,
+          state: this.state,
+          country: this.country
+        });
       }, 500);
     },
     searchMetric() {
-      let str = this.input
-        .trim()
-        .toLowerCase()
-        .split(' ')
-        .map((word) => word[0].toUpperCase() + word.substr(1))
-        .join(' ');
-      this.city = str;
+      this.city = this.input;
       this.units = 'metric';
 
       this.addCity({
@@ -139,7 +136,6 @@ export default {
         state: this.state,
         country: this.country
       });
-
       setTimeout(() => {
         this.cityCode = this.getCityCode[0];
         this.weather({
@@ -149,6 +145,12 @@ export default {
         this.forecast({
           city: this.cityCode,
           unit: this.units
+        });
+        this.coord({
+          coord: this.getCityCoords,
+          city: this.city,
+          state: this.state,
+          country: this.country
         });
       }, 500);
     },
@@ -168,11 +170,6 @@ export default {
     },
     autoComplete($event) {
       this.input = $event;
-      this.input = this.input
-        .toLowerCase()
-        .split(' ')
-        .map((word) => word[0].toUpperCase() + word.substr(1))
-        .join(' ');
       this.getAc({
         input: this.input,
         state: this.state,
