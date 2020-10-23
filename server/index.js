@@ -9,9 +9,11 @@ app.use(bodyParser.json());
 
 const cityMatch = require('./routes/api/citySearch');
 const autoComplete = require('./routes/api/autoComplete');
+const coordSearch = require('./routes/api/coordSearch');
 
 app.use('/api/citySearch', cityMatch);
 app.use('/api/autoComplete', autoComplete);
+app.use('/api/coordSearch', coordSearch);
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(__dirname + '/public'));

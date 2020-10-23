@@ -9,7 +9,6 @@ router.get('/', (req, res) => {
   const searchString = req.query.q;
   const state = req.query.state;
   const country = req.query.country;
-  const reqQuery = req.query;
 
   if (state) {
     res.send(
