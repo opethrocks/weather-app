@@ -15,6 +15,12 @@
             <font-awesome-icon icon="location-arrow" />
             {{ cityData[0].name }}, {{ cityData[0].country }}
           </p>
+          <button
+            class="button is-rounded is-warning is-small"
+            @click="toggleConditions"
+          >
+            Show Conditions
+          </button>
           <div class="flex-container">
             <div v-for="forecast in getForecast" :key="forecast.dt">
               <div v-for="weather in forecast.weather" :key="weather.id">
@@ -32,6 +38,7 @@
                     <font-awesome-icon icon="thermometer-half" />
                     {{ Math.round(forecast.main.temp) }}{{ formatUnits }}
                   </p>
+
                   <div id="icon">
                     <i
                       :style="{ color: randomColor() }"
@@ -51,9 +58,6 @@
               </div>
             </div>
           </div>
-          <button class="button is-link is-small" @click="toggleConditions">
-            Show Conditions
-          </button>
         </div>
       </div>
     </transition>

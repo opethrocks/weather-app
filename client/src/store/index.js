@@ -12,25 +12,21 @@ export default new Vuex.Store({
     isForecastActive: false,
     currentCity: null,
     cityCoords: {
-      city: 'Timbuktu',
+      name: 'Timbuktu',
       country: 'ML',
-      coord: [
-        {
-          lon: -3.00742,
-          lat: 16.773479
-        }
-      ]
+      coord: {
+        lon: -3.00742,
+        lat: 16.773479
+      }
     },
     autoComplete: null
   },
   mutations: {
     ADD_WEATHER(state, payload) {
-      let data = payload;
-      state.currentWeather = data;
+      state.currentWeather = payload;
     },
     ADD_FORECAST(state, payload) {
-      let data = payload;
-      state.weatherForecast = data;
+      state.weatherForecast = payload;
     },
 
     SET_UNIT(state, payload) {
@@ -57,48 +53,6 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    currentWeather({ commit }, payload) {
-      let city = payload.city;
-      let unit = payload.unit;
-      const apiKey = process.env.VUE_APP_API_KEY;
-      axios({
-        method: 'GET',
-        url: `https://api.openweathermap.org/data/2.5/weather?id=${city}&appid=${apiKey}`,
-        params: {
-          units: unit
-        }
-      })
-        .then((response) => {
-          commit('ADD_WEATHER', response.data);
-          commit('SET_UNIT', unit);
-        })
-        .catch((error) => {
-          if (error.response) {
-            alert(error.message);
-          }
-        });
-    },
-    weatherForecast({ commit }, payload) {
-      let city = payload.city;
-      let unit = payload.unit;
-      const apiKey = process.env.VUE_APP_API_KEY;
-      axios({
-        method: 'GET',
-        url: `https://api.openweathermap.org/data/2.5/forecast?id=${city}&appid=${apiKey}`,
-        params: {
-          units: unit
-        }
-      })
-        .then((response) => {
-          commit('ADD_FORECAST', response.data);
-          commit('SET_UNIT', unit);
-        })
-        .catch((error) => {
-          if (error.response) {
-            alert(JSON.stringify(error.message));
-          }
-        });
-    },
     deleteCity({ commit }) {
       commit('DELETE_CITY');
     },
@@ -106,12 +60,50 @@ export default new Vuex.Store({
       let city = payload.city;
       let state = payload.state;
       let country = payload.country;
+      let unit = payload.unit;
       const url = 'api/citySearch';
       axios
         .post(url, {
           data: { city: city, state: state, country: country }
         })
         .then((response) => {
+          let cityCode = response.data.data[0].id;
+          const apiKey = process.env.VUE_APP_API_KEY;
+          commit('ADD_CITY_COORDS', response.data.data[0]);
+
+          axios({
+            method: 'GET',
+            url: `https://api.openweathermap.org/data/2.5/forecast?id=${cityCode}&appid=${apiKey}`,
+            params: {
+              units: unit
+            }
+          })
+            .then((response) => {
+              commit('ADD_FORECAST', response.data);
+              commit('SET_UNIT', unit);
+            })
+            .catch((error) => {
+              if (error.response) {
+                alert(JSON.stringify(error.message));
+              }
+            });
+
+          axios({
+            method: 'GET',
+            url: `https://api.openweathermap.org/data/2.5/weather?id=${cityCode}&appid=${apiKey}`,
+            params: {
+              units: unit
+            }
+          })
+            .then((response) => {
+              commit('ADD_WEATHER', response.data);
+              commit('SET_UNIT', unit);
+            })
+            .catch((error) => {
+              if (error.response) {
+                alert(error.message);
+              }
+            });
           commit('ADD_CITY', response.data);
         })
         .catch((error) => alert(error.message));
@@ -136,9 +128,6 @@ export default new Vuex.Store({
         .catch((error) => {
           alert(error.message);
         });
-    },
-    addCityCoords({ commit }, payload) {
-      commit('ADD_CITY_COORDS', payload);
     },
 
     toggleForecast({ commit }) {

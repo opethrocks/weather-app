@@ -7,7 +7,7 @@
     >
       <div v-if="!isActive">
         <div class="box" id="round-corners">
-          <p class="label is-size-3 pt-3" v-if="cityData[0].state">
+          <p class="label is-size-3 pt-3 is-small" v-if="cityData[0].state">
             <font-awesome-icon icon="location-arrow" />
             {{ cityData[0].name }}, {{ cityData[0].state }}
           </p>
@@ -20,10 +20,17 @@
           <p class="is-size-4 has-text-weight-semibold capitalize">
             {{ getWeather[0].description }}
           </p>
-          <p class="is-size-4 has-text-weight-semibold">
+          <p class="is-size-4 pb-2 has-text-weight-semibold">
             <font-awesome-icon icon="thermometer-half" />
             {{ Math.round(currentWeather.main.temp) }}{{ formatUnits }}
           </p>
+          <button
+            class="button is-rounded is-small is-warning"
+            @click="toggleForecast"
+          >
+            Show Forecast
+          </button>
+
           <div id="icon">
             <i
               :style="{ color: randomColor() }"
@@ -49,9 +56,6 @@
             Sunset:
             {{ formatTime(currentWeather.sys.sunset) }}
           </p>
-          <button class="button is-link is-small" @click="toggleForecast">
-            Show Forecast
-          </button>
         </div>
       </div>
     </transition>
@@ -140,5 +144,8 @@ export default {
 }
 #icon {
   font-size: 256px;
+}
+.button {
+  margin-bottom: 2em;
 }
 </style>

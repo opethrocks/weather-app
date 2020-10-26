@@ -67,13 +67,6 @@ export default {
     };
   },
   computed: {
-    getCityCode() {
-      return this.currentCity.data.map((obj) => obj.id);
-    },
-    getCityCoords() {
-      return this.currentCity.data.map((obj) => obj.coord);
-    },
-
     ...mapGetters([
       'currentWeather',
       'weatherForecast',
@@ -81,22 +74,16 @@ export default {
       'toggleForecast',
       'currentCity',
       'autoCompleteData'
-    ])
+    ]),
+    getCityCode() {
+      return this.currentCity.data.map((obj) => obj.id);
+    }
   },
   methods: {
-    ...mapActions([
-      'currentWeather',
-      'weatherForecast',
-      'addCity',
-      'getAutoComplete',
-      'addCityCoords'
-    ]),
+    ...mapActions(['addCity', 'getAutoComplete']),
     ...mapActions({
-      weather: 'currentWeather',
-      forecast: 'weatherForecast',
       addCity: 'addCity',
-      getAc: 'getAutoComplete',
-      coord: 'addCityCoords'
+      getAc: 'getAutoComplete'
     }),
 
     searchImperial() {
@@ -106,26 +93,9 @@ export default {
       this.addCity({
         city: this.city,
         state: this.state,
-        country: this.country
+        country: this.country,
+        unit: this.units
       });
-
-      setTimeout(() => {
-        this.cityCode = this.getCityCode[0];
-        this.weather({
-          city: this.cityCode,
-          unit: this.units
-        });
-        this.forecast({
-          city: this.cityCode,
-          unit: this.units
-        });
-        this.coord({
-          coord: this.getCityCoords,
-          city: this.city,
-          state: this.state,
-          country: this.country
-        });
-      }, 500);
     },
     searchMetric() {
       this.city = this.input;
@@ -134,35 +104,17 @@ export default {
       this.addCity({
         city: this.city,
         state: this.state,
-        country: this.country
+        country: this.country,
+        unit: this.units
       });
-      setTimeout(() => {
-        this.cityCode = this.getCityCode[0];
-        this.weather({
-          city: this.cityCode,
-          unit: this.units
-        });
-        this.forecast({
-          city: this.cityCode,
-          unit: this.units
-        });
-        this.coord({
-          coord: this.getCityCoords,
-          city: this.city,
-          state: this.state,
-          country: this.country
-        });
-      }, 500);
     },
 
     selectState($event) {
       this.state = $event.state;
-      this.country = $event.country;
       this.input = null;
     },
     selectCountry($event) {
       this.country = $event.country;
-      this.state = $event.state;
       this.input = null;
     },
     selectCity($event) {

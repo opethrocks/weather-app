@@ -102,7 +102,7 @@ export default {
       this.stateDropdownText = state.name;
       this.country = null;
       this.countryDropdownText = 'Select Country';
-      this.$emit('selectState', { state: this.state, country: this.country });
+      this.$emit('selectState', { state: this.state });
     },
     selectCountryDropdownItem(country) {
       this.countries.map((item) => (item.isActive = false));
@@ -111,7 +111,7 @@ export default {
       this.countryDropdownText = country.name;
       this.state = null;
       this.stateDropdownText = 'Select State';
-      this.$emit('selectCountry', { country: this.country, state: this.state });
+      this.$emit('selectCountry', { country: this.country });
     },
     toggleStateDropdown() {
       this.activeStateDropdown === false
