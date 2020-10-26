@@ -54,9 +54,6 @@ export default {
     newInput() {
       this.$emit('newInput', this.input);
       this.isActive = true;
-      if (this.input === '') {
-        this.isActive = false;
-      }
     },
     selectCity($event) {
       this.input = $event;
