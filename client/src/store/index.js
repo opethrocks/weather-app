@@ -50,6 +50,9 @@ export default new Vuex.Store({
     },
     ADD_CITY_COORDS(state, payload) {
       state.cityCoords = payload;
+    },
+    REMOVE_AC(state) {
+      state.autoComplete = null;
     }
   },
   actions: {
@@ -142,7 +145,14 @@ export default new Vuex.Store({
           commit('AUTO_COMPLETE', response.data);
         })
         .catch((error) => {
-          alert(error.message);
+          if (error.response) {
+            Vue.notify({
+              type: 'error',
+              title: 'An error occurred',
+              text: error.response.data
+            });
+            commit('REMOVE_AC');
+          }
         });
     },
 

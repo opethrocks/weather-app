@@ -18,7 +18,7 @@
         </span>
       </div>
     </div>
-    <div class="box" v-if="input && isActive">
+    <div class="box" v-if="autoCompleteData && isActive">
       <ul>
         <li v-for="match in autoCompleteData" :key="match.id">
           <a
@@ -54,6 +54,9 @@ export default {
     newInput() {
       this.$emit('newInput', this.input);
       this.isActive = true;
+      if (this.input === '') {
+        this.isActive = false;
+      }
     },
     selectCity($event) {
       this.input = $event;
@@ -71,8 +74,11 @@ export default {
 </script>
 
 <style scoped>
-#closeBox {
+.box {
   display: flex;
-  justify-content: flex-end;
+  overflow-y: auto;
+  height: fit-content;
+  max-height: 30em;
+  justify-content: center;
 }
 </style>
