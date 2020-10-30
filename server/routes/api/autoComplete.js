@@ -1,5 +1,6 @@
 const express = require('express');
 const fs = require('fs');
+const { serialize } = require('v8');
 
 const router = express.Router();
 
@@ -10,18 +11,22 @@ router.get('/', (req, res) => {
   const state = req.query.state;
   const country = req.query.country;
 
-  if (state) {
-    res.send(
-      rawData.filter((obj) => {
-        return obj.state === state && obj.name.includes(searchString);
-      })
-    );
-  } else if (country) {
-    res.send(
-      rawData.filter((obj) => {
-        return obj.country === country && obj.name.includes(searchString);
-      })
-    );
+  if (state === undefined && country === undefined) {
+    res.status(400).send('Select a state or country first!');
+  }
+
+  let match = rawData.filter((obj) => {
+    if (obj.state === state && obj.name.includes(searchString)) {
+      return obj;
+    } else if (obj.country === country && obj.name.includes(searchString)) {
+      return obj;
+    }
+  });
+
+  if (match.length > 0) {
+    res.status(200).send(match);
+  } else {
+    res.status(400).send('No match found!');
   }
 });
 

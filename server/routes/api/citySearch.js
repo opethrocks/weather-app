@@ -10,10 +10,10 @@ router.post('/', (req, res) => {
   let rawData = JSON.parse(fs.readFileSync('./cities.json', 'utf8'));
 
   if (city === null) {
-    return res.status(400).send('Dont forget to type a city name!');
+    return res.status(400).send('You forgot to type a city name!');
   }
   if (state === null && country === null) {
-    return res.status(400).send('Dont forget to choose a state or country!');
+    return res.status(400).send('Select a state or country first!');
   }
 
   let result = rawData.find((obj) => {
