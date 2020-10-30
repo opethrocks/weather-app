@@ -64,8 +64,9 @@ export default {
       this.isActive = false;
     },
     clearCity() {
-      this.input = null;
-      if (this.input === null) {
+      this.input = '';
+      this.isActive = false;
+      if (this.input === '') {
         this.$emit('newInput', this.input);
       }
     }

@@ -12,7 +12,10 @@ router.get('/', (req, res) => {
   const country = req.query.country;
 
   if (state === undefined && country === undefined) {
-    res.status(400).send('Select a state or country first!');
+    res.status(400).send({
+      title: 'Hold on Mr. Flash!',
+      content: 'You have to select a state or country first!'
+    });
   }
 
   let match = rawData.filter((obj) => {
@@ -26,7 +29,10 @@ router.get('/', (req, res) => {
   if (match.length > 0) {
     res.status(200).send(match);
   } else {
-    res.status(400).send('No match found!');
+    res.status(400).send({
+      title: "That's weird",
+      content: "I've never heard of that city"
+    });
   }
 });
 

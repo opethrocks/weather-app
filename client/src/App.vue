@@ -5,6 +5,7 @@
       type="error"
       position="top center"
       max=1
+      duration=1
     />
     <div id="nav">
       <router-link to="/">Conditions</router-link> |

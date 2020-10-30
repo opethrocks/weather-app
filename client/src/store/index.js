@@ -110,8 +110,8 @@ export default new Vuex.Store({
               if (error.response) {
                 Vue.notify({
                   type: 'error',
-                  title: 'An error occurred',
-                  text: error.response.data
+                  title: error.response.data.title,
+                  text: error.response.data.content
                 });
               }
             });
@@ -121,8 +121,8 @@ export default new Vuex.Store({
           if (error.response) {
             Vue.notify({
               type: 'error',
-              title: 'An error occurred',
-              text: error.response.data
+              title: error.response.data.title,
+              text: error.response.data.content
             });
           }
         });
@@ -148,8 +148,8 @@ export default new Vuex.Store({
           if (error.response) {
             Vue.notify({
               type: 'error',
-              title: 'An error occurred',
-              text: error.response.data
+              title: error.response.data.title,
+              text: error.response.data.content
             });
             commit('REMOVE_AC');
           }
