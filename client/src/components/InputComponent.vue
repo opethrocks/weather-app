@@ -52,11 +52,12 @@ export default {
   },
   methods: {
     newInput() {
-      this.$emit('newInput', this.input);
       this.isActive = true;
       if (this.input === '') {
         this.isActive = false;
+        this.input = "";
       }
+      this.$emit('newInput', this.input);
     },
     selectCity($event) {
       this.input = $event;

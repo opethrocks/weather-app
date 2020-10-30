@@ -9,7 +9,7 @@ router.post('/', (req, res) => {
   let country = req.body.data.country;
   let rawData = JSON.parse(fs.readFileSync('./cities.json', 'utf8'));
 
-  if (city === null) {
+  if (city === null || city === '') {
     return res.status(400).send({
       title: 'This is embarrasing..',
       content: 'You forgot to type a city name!'
@@ -32,8 +32,6 @@ router.post('/', (req, res) => {
 
   if (result) {
     res.status(200).send(result);
-  } else {
-    res.status(500).send('City not found!');
   }
 });
 
