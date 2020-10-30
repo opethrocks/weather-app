@@ -1,22 +1,28 @@
 <template>
   <div id="app">
+    <notifications
+      classes="vue-notification"
+      type="error"
+      position="top center"
+    />
     <div id="nav">
       <router-link to="/">Conditions</router-link> |
       <router-link to="/weather-maps">Maps</router-link>
     </div>
-    <router-view />
+    <keep-alive include="Home, WeatherMaps">
+      <router-view />
+    </keep-alive>
   </div>
 </template>
-
-<script>
-export default {};
-</script>
 
 <style lang="scss" scoped>
 .container {
   padding: 5em 5em 5em 5em;
 }
-
+.vue-notification {
+  background: #ff8000;
+  font-size: 15px;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

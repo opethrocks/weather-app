@@ -67,9 +67,9 @@ export default new Vuex.Store({
           data: { city: city, state: state, country: country }
         })
         .then((response) => {
-          let cityCode = response.data.data[0].id;
+          let cityCode = response.data.id;
           const apiKey = process.env.VUE_APP_API_KEY;
-          commit('ADD_CITY_COORDS', response.data.data[0]);
+          commit('ADD_CITY_COORDS', response.data);
 
           axios({
             method: 'GET',
@@ -84,7 +84,11 @@ export default new Vuex.Store({
             })
             .catch((error) => {
               if (error.response) {
-                alert(JSON.stringify(error.message));
+                Vue.notify({
+                  type: 'error',
+                  title: 'An error occurred',
+                  text: error.response.data
+                });
               }
             });
 
@@ -101,12 +105,24 @@ export default new Vuex.Store({
             })
             .catch((error) => {
               if (error.response) {
-                alert(error.message);
+                Vue.notify({
+                  type: 'error',
+                  title: 'An error occurred',
+                  text: error.response.data
+                });
               }
             });
           commit('ADD_CITY', response.data);
         })
-        .catch((error) => alert(error.message));
+        .catch((error) => {
+          if (error.response) {
+            Vue.notify({
+              type: 'error',
+              title: 'An error occurred',
+              text: error.response.data
+            });
+          }
+        });
     },
     getAutoComplete({ commit }, payload) {
       let input = payload.input;

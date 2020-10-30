@@ -7,14 +7,14 @@
     >
       <div v-if="!isActive">
         <div class="box" id="round-corners">
-          <p class="label is-size-3 pt-3 is-small" v-if="cityData[0].state">
+          <p class="label is-size-3 pt-3 is-small" v-if="cityData.state">
             <font-awesome-icon icon="location-arrow" />
-            {{ cityData[0].name }}, {{ cityData[0].state }}
+            {{ cityData.name }}, {{ cityData.state }}
           </p>
           <p class="label is-size-3 pt-3" v-else>
             <font-awesome-icon icon="location-arrow" />
-            {{ cityData[0].name }},
-            {{ cityData[0].country }}
+            {{ cityData.name }},
+            {{ cityData.country }}
           </p>
 
           <p class="is-size-4 has-text-weight-semibold capitalize">
@@ -96,9 +96,11 @@ export default {
       default: () => ''
     },
     cityData: {
-      type: Array,
+      type: Object,
       default: () => {
-        [];
+        {
+          null;
+        }
       }
     }
   },

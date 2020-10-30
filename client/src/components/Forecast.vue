@@ -7,13 +7,13 @@
     >
       <div v-if="isActive">
         <div class="box">
-          <p class="label is-size-3 pt-3" v-if="cityData[0].state">
+          <p class="label is-size-3 pt-3" v-if="cityData.state">
             <font-awesome-icon icon="location-arrow" />
-            {{ cityData[0].name }}, {{ cityData[0].state }}
+            {{ cityData.name }}, {{ cityData.state }}
           </p>
           <p class="label is-size-3 pt-3" v-else>
             <font-awesome-icon icon="location-arrow" />
-            {{ cityData[0].name }}, {{ cityData[0].country }}
+            {{ cityData.name }}, {{ cityData.country }}
           </p>
           <button
             class="button is-rounded is-warning is-small"
@@ -92,9 +92,11 @@ export default {
       }
     },
     cityData: {
-      type: Array,
+      type: Object,
       default: () => {
-        [];
+        {
+          null;
+        }
       }
     }
   },

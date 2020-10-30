@@ -35,7 +35,7 @@
             :currentWeather="currentWeather"
             :unitSelected="selectedUnit"
             :isActive="toggleForecast"
-            :cityData="currentCity.data"
+            :cityData="currentCity"
           />
         </div>
       </transition>
@@ -63,7 +63,8 @@ export default {
       country: null,
       city: null,
       units: null,
-      cityCode: null
+      cityCode: null,
+      showBox: false
     };
   },
   computed: {
@@ -74,10 +75,7 @@ export default {
       'toggleForecast',
       'currentCity',
       'autoCompleteData'
-    ]),
-    getCityCode() {
-      return this.currentCity.data.map((obj) => obj.id);
-    }
+    ])
   },
   methods: {
     ...mapActions(['addCity', 'getAutoComplete']),

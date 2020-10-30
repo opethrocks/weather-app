@@ -20,6 +20,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import 'weather-icons-lite/css/weather-icons-lite.css';
 import 'vue2-animate/dist/vue2-animate.min.css';
 import 'font-awesome/css/font-awesome.min.css';
+import Notifications from 'vue-notification';
 
 //leaflet, fix icon issue
 import { Icon } from 'leaflet';
@@ -44,6 +45,7 @@ library.add(faCalendarAlt);
 
 Vue.config.productionTip = false;
 Vue.component('font-awesome-icon', FontAwesomeIcon);
+Vue.use(Notifications);
 
 new Vue({
   router,
