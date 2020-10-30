@@ -9,14 +9,14 @@ router.post('/', (req, res) => {
   let country = req.body.data.country;
   let rawData = JSON.parse(fs.readFileSync('./cities.json', 'utf8'));
 
-  if (!req.body.data) {
-    return res.status(400).json({
-      status: 'error',
-      error: 'req body cannot be empty'
-    });
+  if (city === null) {
+    return res.status(400).send('Dont forget to type a city name!');
+  }
+  if (state === null && country === null) {
+    return res.status(400).send('Dont forget to choose a state or country!');
   }
 
-  let result = rawData.filter((obj) => {
+  let result = rawData.find((obj) => {
     if (obj.name === city && obj.state === state) {
       return obj;
     } else if (obj.name === city && obj.country === country) {
@@ -25,10 +25,7 @@ router.post('/', (req, res) => {
   });
 
   if (result) {
-    res.status(200).json({
-      status: 'success',
-      data: result
-    });
+    res.status(200).send(result);
   } else {
     res.status(500).send('City not found!');
   }
