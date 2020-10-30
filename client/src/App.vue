@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <notifications
-      classes="vue-notification"
+    classes="notification"
       type="error"
       position="top center"
       max=1
@@ -16,13 +16,9 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .container {
   padding: 5em 5em 5em 5em;
-}
-.vue-notification {
-  background: #ff8000;
-  font-size: 15px;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -31,7 +27,19 @@
   text-align: center;
   color: #2c3e50;
 }
-
+.notification {
+  color: #ffffff;
+  .notification-title {
+    font-size: 16px;
+  }
+  .notification-content {
+    font-size: 15px;
+  }
+  &.error {
+    background: #E54D42;
+    border-left: 5px solid #B82E24
+  }
+}
 #nav {
   padding: 30px;
 
