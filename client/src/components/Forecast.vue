@@ -1,62 +1,54 @@
 <template>
   <div>
-    <transition name="fade">
-      <div v-if="isActive">
-        <div class="box">
-          <p class="label is-size-3 pt-3" v-if="cityData.state">
-            <font-awesome-icon icon="location-arrow" />
-            {{ cityData.name }}, {{ cityData.state }}
-          </p>
-          <p class="label is-size-3 pt-3" v-else>
-            <font-awesome-icon icon="location-arrow" />
-            {{ cityData.name }}, {{ cityData.country }}
-          </p>
-          <button
-            class="button is-rounded is-warning is-small"
-            @click="toggleConditions"
-          >
-            Show Conditions
-          </button>
-          <div class="flex-container">
-            <div v-for="forecast in getForecast" :key="forecast.dt">
-              <div v-for="weather in forecast.weather" :key="weather.id">
-                <div class="flex-item">
-                  <p
-                    class="has-text-weight-semibold is-size-6"
-                    id="description"
-                  >
-                    {{ weather.description }}
-                  </p>
-                  <p
-                    class="has-text-weight-semibold is-size-6"
-                    id="description"
-                  >
-                    <font-awesome-icon icon="thermometer-half" />
-                    {{ Math.round(forecast.main.temp) }}{{ formatUnits }}
-                  </p>
+    <div v-if="isActive">
+      <div class="box">
+        <p class="label is-size-3 pt-3" v-if="cityData.state">
+          <font-awesome-icon icon="location-arrow" />
+          {{ cityData.name }}, {{ cityData.state }}
+        </p>
+        <p class="label is-size-3 pt-3" v-else>
+          <font-awesome-icon icon="location-arrow" />
+          {{ cityData.name }}, {{ cityData.country }}
+        </p>
+        <button
+          class="button is-rounded is-warning is-small"
+          @click="toggleConditions"
+        >
+          Show Conditions
+        </button>
+        <div class="flex-container">
+          <div v-for="forecast in getForecast" :key="forecast.dt">
+            <div v-for="weather in forecast.weather" :key="weather.id">
+              <div class="flex-item">
+                <p class="has-text-weight-semibold is-size-6" id="description">
+                  {{ weather.description }}
+                </p>
+                <p class="has-text-weight-semibold is-size-6" id="description">
+                  <font-awesome-icon icon="thermometer-half" />
+                  {{ Math.round(forecast.main.temp) }}{{ formatUnits }}
+                </p>
 
-                  <div id="icon">
-                    <i
-                      :style="{ color: randomColor() }"
-                      :class="`wi wi-owm-${weather.icon}`"
-                    ></i>
-                  </div>
-
-                  <p class="has-text-weight-semibold">
-                    <font-awesome-icon icon="clock" />
-                    {{ formatTime(forecast.dt) }}
-                  </p>
-                  <p class="has-text-weight-semibold">
-                    <font-awesome-icon icon="calendar-alt" />
-                    {{ formatDate(forecast.dt) }}
-                  </p>
+                <div id="icon">
+                  <i
+                    :style="{ color: randomColor() }"
+                    :class="`wi wi-owm-${weather.icon}`"
+                  ></i>
                 </div>
+
+                <p class="has-text-weight-semibold">
+                  <font-awesome-icon icon="clock" />
+                  {{ formatTime(forecast.dt) }}
+                </p>
+                <p class="has-text-weight-semibold">
+                  <font-awesome-icon icon="calendar-alt" />
+                  {{ formatDate(forecast.dt) }}
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </transition>
+    </div>
   </div>
 </template>
 

@@ -5,7 +5,6 @@
       type="error"
       position="top center"
       max="1"
-      duration="1"
     />
     <!-- <label class="checkbox has-text-weight-bold">
       Dark Mode
@@ -19,7 +18,7 @@
       <router-view />
     </keep-alive>
 
-    <footer>Designed by Matt Lebleu</footer>
+    <footer id="footer">Designed by Matt Lebleu</footer>
   </div>
 </template>
 
@@ -71,6 +70,7 @@ export default {
   }
 }
 #nav {
+  font-size: 18px;
   padding: 30px;
 
   a {
@@ -81,5 +81,11 @@ export default {
       color: #0097cc;
     }
   }
+}
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30px; /* Height of the footer */
 }
 </style>

@@ -1,59 +1,60 @@
 <template>
   <div>
-    <transition name="fade">
-      <div v-if="!isActive" style="animation-duration: 1s">
-        <div class="box" id="round-corners">
-          <p class="label is-size-3 pt-3 is-small" v-if="cityData.state">
-            <font-awesome-icon icon="location-arrow" />
-            {{ cityData.name }}, {{ cityData.state }}
-          </p>
-          <p class="label is-size-3 pt-3" v-else>
-            <font-awesome-icon icon="location-arrow" />
-            {{ cityData.name }},
-            {{ cityData.country }}
-          </p>
+    <div v-if="!isActive" style="animation-duration: 1s">
+      <div class="box" id="round-corners">
+        <p class="label is-size-3 pt-3 is-small" v-if="cityData.state">
+          <font-awesome-icon icon="location-arrow" />
+          {{ cityData.name }}, {{ cityData.state }}
+        </p>
+        <p class="label is-size-3 pt-3" v-else>
+          <font-awesome-icon icon="location-arrow" />
+          {{ cityData.name }},
+          {{ cityData.country }}
+        </p>
 
-          <p class="is-size-4 has-text-weight-semibold capitalize">
-            {{ getWeather[0].description }}
-          </p>
-          <p class="is-size-4 pb-2 has-text-weight-semibold">
-            <font-awesome-icon icon="thermometer-half" />
-            {{ Math.round(currentWeather.main.temp) }}{{ formatUnits }}
-          </p>
-          <button
-            class="button is-rounded is-small is-warning"
-            @click="toggleForecast"
-          >
-            Show Forecast
-          </button>
+        <p class="is-size-4 has-text-weight-semibold capitalize">
+          {{ getWeather[0].description }}
+        </p>
+        <p class="is-size-4 pb-2 has-text-weight-semibold">
+          <font-awesome-icon icon="thermometer-half" />
+          {{ Math.round(currentWeather.main.temp) }}{{ formatUnits }}
+        </p>
+        <button
+          class="button is-rounded is-small is-warning"
+          @click="toggleForecast"
+        >
+          Show Forecast
+        </button>
 
-          <div id="icon">
-            <i
-              :style="{ color: randomColor() }"
-              :class="`wi wi-owm-${getWeather[0].icon}`"
-            ></i>
-          </div>
-          <p class="has-text-weight-semibold">
-            <font-awesome-icon icon="wind" />
-            Wind: {{ Math.round(currentWeather.wind.speed) }} Mph
-          </p>
-          <p class="has-text-weight-semibold">
-            <font-awesome-icon icon="water" /> Humidity:
-            {{ currentWeather.main.humidity }}%
-          </p>
-          <p class="has-text-weight-semibold">
-            <font-awesome-icon icon="sun" />
-            <font-awesome-icon icon="long-arrow-alt-up" /> Sunrise:
-            {{ formatTime(currentWeather.sys.sunrise) }}
-          </p>
-          <p class="pb-2 has-text-weight-semibold">
-            <font-awesome-icon icon="sun" />
-            <font-awesome-icon icon="long-arrow-alt-down" />
-            Sunset:
-            {{ formatTime(currentWeather.sys.sunset) }}
-          </p>
+        <div id="icon">
+          <i
+            :style="{ color: randomColor() }"
+            :class="`wi wi-owm-${getWeather[0].icon}`"
+          ></i>
         </div>
+        <p class="has-text-weight-semibold">
+          <font-awesome-icon icon="wind" />
+          Wind: {{ Math.round(currentWeather.wind.speed) }} Mph
+        </p>
+        <p class="has-text-weight-semibold">
+          <font-awesome-icon icon="water" /> Humidity:
+          {{ currentWeather.main.humidity }}%
+        </p>
+        <p class="has-text-weight-semibold">
+          <font-awesome-icon icon="sun" />
+          <font-awesome-icon icon="long-arrow-alt-up" /> Sunrise:
+          {{ formatTime(currentWeather.sys.sunrise) }}
+        </p>
+        <p class="pb-2 has-text-weight-semibold">
+          <font-awesome-icon icon="sun" />
+          <font-awesome-icon icon="long-arrow-alt-down" />
+          Sunset:
+          {{ formatTime(currentWeather.sys.sunset) }}
+        </p>
       </div>
+    </div>
+
+    <transition name="fade">
       <forecast
         :isActive="isActive"
         :forecastWeather="forecastWeather"
@@ -143,7 +144,7 @@ export default {
 #icon {
   font-size: 256px;
 }
-.button {
-  margin-bottom: 2em;
+.box {
+  height: fit-content;
 }
 </style>

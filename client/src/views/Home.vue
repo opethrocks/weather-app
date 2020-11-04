@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <div class="flex-container">
       <dropdown-component
         @selectState="selectState"
@@ -28,11 +27,10 @@
         >
           Metric
         </button>
-
       </div>
       <br />
       <transition name="fade">
-        <div v-if="currentWeather" style="animation-duration: 1s">
+        <div v-if="currentWeather">
           <current-conditions
             :forecastWeather="weatherForecast"
             :currentWeather="currentWeather"
@@ -145,12 +143,5 @@ export default {
 }
 #icon {
   padding-left: 0.5em;
-}
-.box {
-  height: fit-content;
-  max-height: 30em;
-  display: flex;
-  overflow-y: auto;
-  padding: 1em;
 }
 </style>
