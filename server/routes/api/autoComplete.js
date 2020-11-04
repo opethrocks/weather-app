@@ -11,11 +11,13 @@ router.get('/', (req, res) => {
   const state = req.query.state;
   const country = req.query.country;
 
-  if (state === undefined && country === undefined) {
-    res.status(400).send({
-      title: 'Hold on Mr. Flash!',
-      content: 'You have to select a state or country first!'
-    });
+  if (searchString !== '') {
+    if (state === undefined && country === undefined) {
+      res.status(400).send({
+        title: 'Hold on Mr. Flash!',
+        content: 'You have to select a state or country first!'
+      });
+    }
   }
 
   let match = rawData.filter((obj) => {

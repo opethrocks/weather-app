@@ -1,5 +1,6 @@
 <template>
   <div>
+    
     <div class="flex-container">
       <dropdown-component
         @selectState="selectState"
@@ -12,6 +13,7 @@
       />
       <div class="flex-item">
         <button
+          label="Search Imperial"
           class="button is-info is-rounded is-small"
           style="margin-top: 1em; margin-right: 1em"
           @click="searchImperial"
@@ -20,16 +22,17 @@
         </button>
 
         <button
-          class="button is-success is-rounded is-small"
+          class="button is-info is-rounded is-small"
           style="margin-top: 1em"
           @click="searchMetric"
         >
           Metric
         </button>
+
       </div>
       <br />
       <transition name="fade">
-        <div v-if="currentWeather">
+        <div v-if="currentWeather" style="animation-duration: 1s">
           <current-conditions
             :forecastWeather="weatherForecast"
             :currentWeather="currentWeather"
@@ -74,7 +77,8 @@ export default {
       'selectedUnit',
       'toggleForecast',
       'currentCity',
-      'autoCompleteData'
+      'autoCompleteData',
+      'darkMode'
     ])
   },
   methods: {
@@ -134,7 +138,7 @@ export default {
 .flex-container {
   display: flex;
   align-items: center;
-  flex-flow: column;
+  flex-flow: column wrap;
 }
 .flex-item {
   flex: 1;

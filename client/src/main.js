@@ -2,7 +2,6 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import 'bulma/css/bulma.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faSearch,
@@ -14,7 +13,8 @@ import {
   faLongArrowAltUp,
   faLongArrowAltDown,
   faClock,
-  faCalendarAlt
+  faCalendarAlt,
+  faMoon
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import 'weather-icons-lite/css/weather-icons-lite.css';
@@ -32,6 +32,8 @@ Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 
+require('./assets/main.scss');
+
 library.add(faSearch);
 library.add(faThermometerHalf);
 library.add(faLocationArrow);
@@ -42,6 +44,7 @@ library.add(faLongArrowAltUp);
 library.add(faLongArrowAltDown);
 library.add(faClock);
 library.add(faCalendarAlt);
+library.add(faMoon);
 
 Vue.config.productionTip = false;
 Vue.component('font-awesome-icon', FontAwesomeIcon);

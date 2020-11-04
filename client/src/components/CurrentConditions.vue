@@ -1,11 +1,7 @@
 <template>
   <div>
-    <transition
-      name="bounce"
-      enter-active-class="bounceInLeft"
-      leave-active-class="bounceOutRight"
-    >
-      <div v-if="!isActive">
+    <transition name="fade">
+      <div v-if="!isActive" style="animation-duration: 1s">
         <div class="box" id="round-corners">
           <p class="label is-size-3 pt-3 is-small" v-if="cityData.state">
             <font-awesome-icon icon="location-arrow" />
@@ -58,13 +54,13 @@
           </p>
         </div>
       </div>
+      <forecast
+        :isActive="isActive"
+        :forecastWeather="forecastWeather"
+        :unitSelected="unitSelected"
+        :cityData="cityData"
+      />
     </transition>
-    <forecast
-      :isActive="isActive"
-      :forecastWeather="forecastWeather"
-      :unitSelected="unitSelected"
-      :cityData="cityData"
-    />
   </div>
 </template>
 

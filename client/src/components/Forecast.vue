@@ -1,10 +1,6 @@
 <template>
   <div>
-    <transition
-      name="bounce"
-      enter-active-class="bounceInLeft"
-      leave-active-class="bounceOutRight"
-    >
+    <transition name="fade">
       <div v-if="isActive">
         <div class="box">
           <p class="label is-size-3 pt-3" v-if="cityData.state">

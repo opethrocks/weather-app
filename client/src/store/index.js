@@ -19,7 +19,8 @@ export default new Vuex.Store({
         lat: 16.773479
       }
     },
-    autoComplete: null
+    autoComplete: null,
+    darkMode: false
   },
   mutations: {
     ADD_WEATHER(state, payload) {
@@ -53,6 +54,9 @@ export default new Vuex.Store({
     },
     REMOVE_AC(state) {
       state.autoComplete = null;
+    },
+    SET_THEME(state, payload) {
+      state.darkMode = payload;
     }
   },
   actions: {
@@ -158,6 +162,9 @@ export default new Vuex.Store({
 
     toggleForecast({ commit }) {
       commit('TOGGLE_FORECAST');
+    },
+    setTheme({ commit }, payload) {
+      commit('SET_THEME', payload);
     }
   },
 
@@ -168,6 +175,7 @@ export default new Vuex.Store({
     toggleForecast: (state) => state.isForecastActive,
     currentCity: (state) => state.currentCity,
     autoCompleteData: (state) => state.autoComplete,
-    cityCoords: (state) => state.cityCoords
+    cityCoords: (state) => state.cityCoords,
+    darkMode: (state) => state.darkMode
   }
 });

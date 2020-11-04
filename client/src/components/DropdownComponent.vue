@@ -17,7 +17,13 @@
           </span>
         </button>
       </div>
-      <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+
+      <div
+        class="dropdown-menu"
+        id="dropdown-menu3"
+        role="menu"
+        style="animation-duration: 1s"
+      >
         <div class="dropdown-content" id="dropdown-flex">
           <a
             href="#"
@@ -72,6 +78,7 @@
 <script>
 import worldCountries from '../../public/countries.js';
 import states from '../../public/states.js';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'DropdownComponent',
@@ -86,6 +93,9 @@ export default {
       stateDropdownText: 'Select State',
       countryDropdownText: 'Select Country'
     };
+  },
+  computed: {
+    ...mapGetters(['darkMode'])
   },
   methods: {
     stateCase(state) {

@@ -18,6 +18,7 @@
         </span>
       </div>
     </div>
+
     <div class="box" v-if="autoCompleteData && isActive">
       <ul>
         <li v-for="match in autoCompleteData" :key="match.id">
@@ -34,6 +35,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'InputComponent',
   data() {
@@ -41,6 +44,12 @@ export default {
       isActive: false,
       input: null
     };
+  },
+  computed: {
+    ...mapGetters(['darkMode']),
+    changeTheme() {
+      return this.selectTheme();
+    }
   },
   props: {
     autoCompleteData: {
@@ -55,7 +64,7 @@ export default {
       this.isActive = true;
       if (this.input === '') {
         this.isActive = false;
-        this.input = "";
+        this.input = '';
       }
       this.$emit('newInput', this.input);
     },
@@ -70,6 +79,11 @@ export default {
       if (this.input === '') {
         this.$emit('newInput', this.input);
       }
+    },
+    selectTheme() {
+      return this.darkMode === true
+        ? (this.currentTheme = 'dark')
+        : (this.currentTheme = 'light');
     }
   }
 };
@@ -82,5 +96,8 @@ export default {
   height: fit-content;
   max-height: 30em;
   justify-content: center;
+}
+.custom-input {
+  width: 300px;
 }
 </style>
