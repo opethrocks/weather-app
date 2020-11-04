@@ -17,8 +17,6 @@
     <keep-alive include="Home, WeatherMaps">
       <router-view />
     </keep-alive>
-
-    <footer id="footer">Designed by Matt Lebleu</footer>
   </div>
 </template>
 

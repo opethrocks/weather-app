@@ -147,4 +147,7 @@ export default {
 .box {
   height: fit-content;
 }
+.button {
+  margin-bottom: 1em;
+}
 </style>
