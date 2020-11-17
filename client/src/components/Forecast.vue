@@ -1,11 +1,14 @@
 <template>
   <div>
+    <!--conditionally show forecast widget-->
     <div v-if="isActive">
       <div class="box">
+        <!--show city and state if city is in US-->
         <p class="label is-size-3 pt-3" v-if="cityData.state">
           <font-awesome-icon icon="location-arrow" />
           {{ cityData.name }}, {{ cityData.state }}
         </p>
+        <!--show country if city is anywhere other than US-->
         <p class="label is-size-3 pt-3" v-else>
           <font-awesome-icon icon="location-arrow" />
           {{ cityData.name }}, {{ cityData.country }}
@@ -27,7 +30,7 @@
                   <font-awesome-icon icon="thermometer-half" />
                   {{ Math.round(forecast.main.temp) }}{{ formatUnits }}
                 </p>
-
+                <!--show weather icon and color it randomly-->
                 <div id="icon">
                   <i
                     :style="{ color: randomColor() }"
@@ -60,6 +63,7 @@ export default {
       units: null
     };
   },
+  //Boolean for showing forecast
   props: {
     isActive: {
       type: Boolean,
@@ -92,15 +96,18 @@ export default {
     toggleConditions() {
       this.$store.dispatch('toggleForecast');
     },
+    //show weather icon in random colors each reload
     randomColor() {
       return '#' + (((1 << 24) * Math.random()) | 0).toString(16);
     },
+    //format time string recieved from OWM api
     formatTime(time) {
       return new Date(time * 1000).toLocaleTimeString([], {
         hour: '2-digit',
         minute: '2-digit'
       });
     },
+    //format date string recieved from OWM api
     formatDate(date) {
       return new Date(date * 1000).toLocaleDateString([], {
         month: '2-digit',
@@ -109,9 +116,11 @@ export default {
     }
   },
   computed: {
+    //filter first 10 entries from forecast
     getForecast() {
       return this.forecastWeather.list.filter((item, index) => index < 10);
     },
+    //get icon code from OWM api
     getIcon() {
       return this.forecastIcon.filter((item, index) => index < 10);
     },

@@ -30,6 +30,7 @@
       </div>
       <br />
       <transition name="fade">
+        <!--show current weather widget once response is recieved from api-->
         <div v-if="currentWeather">
           <current-conditions
             :forecastWeather="weatherForecast"
@@ -64,8 +65,7 @@ export default {
       country: null,
       city: null,
       units: null,
-      cityCode: null,
-      showBox: false
+      cityCode: null
     };
   },
   computed: {
@@ -75,8 +75,7 @@ export default {
       'selectedUnit',
       'toggleForecast',
       'currentCity',
-      'autoCompleteData',
-      'darkMode'
+      'autoCompleteData'
     ])
   },
   methods: {
@@ -85,11 +84,13 @@ export default {
       addCity: 'addCity',
       getAc: 'getAutoComplete'
     }),
-
+    //perform city search with imperial units
     searchImperial() {
+      //set this city to typed input
       this.city = this.input;
+      //set selected units
       this.units = 'imperial';
-
+      //call addCity action with everything needed to perform city search
       this.addCity({
         city: this.city,
         state: this.state,
@@ -97,10 +98,13 @@ export default {
         unit: this.units
       });
     },
+    //perform city search with metric units
     searchMetric() {
+      //set this city to typed input
       this.city = this.input;
+      //set selected units
       this.units = 'metric';
-
+      //call addCity action with all info needed to perform city search
       this.addCity({
         city: this.city,
         state: this.state,
@@ -108,20 +112,25 @@ export default {
         unit: this.units
       });
     },
-
+    //select a state from dropdown and clear input box
     selectState($event) {
       this.state = $event.state;
       this.input = null;
     },
+    //select a country from dropdown and clear input box
     selectCountry($event) {
       this.country = $event.country;
       this.input = null;
     },
+    //synchronize input with input component
     selectCity($event) {
       this.input = $event;
     },
+    //perform an autocomplete search for every keystroke
     autoComplete($event) {
+      //from input component
       this.input = $event;
+      //autocomplete action call to server
       this.getAc({
         input: this.input,
         state: this.state,

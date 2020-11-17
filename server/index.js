@@ -6,17 +6,19 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
-
+//set routes
 const cityMatch = require('./routes/api/citySearch');
 const autoComplete = require('./routes/api/autoComplete');
 
 app.use('/api/citySearch', cityMatch);
 app.use('/api/autoComplete', autoComplete);
 
+//determine environment
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(__dirname + '/public'));
   app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
 }
+//set port
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {

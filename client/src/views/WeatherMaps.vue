@@ -29,10 +29,13 @@ export default {
   },
 
   computed: {
+    //get city data from store
     ...mapGetters(['cityCoords']),
+    //format coordinates
     getCoords() {
       return [this.cityCoords.coord.lat, this.cityCoords.coord.lon];
     },
+    //determine whether city has state or country property.(Only US cities have state)
     stateOrCountry() {
       return this.cityCoords.state !== ''
         ? this.cityCoords.state
@@ -41,6 +44,7 @@ export default {
   },
 
   mounted() {
+    //define map layers
     const mapDetailed = L.tileLayer(
       'https://tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png'
     );
@@ -48,7 +52,7 @@ export default {
     const mapStreet = L.tileLayer(
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
     );
-
+    //define OWM layers
     const precipitationLayer = L.OWM.precipitation({
       appId: '64aaf5b71da8c0001799c0054eea79ca',
       opacity: 0.7
@@ -79,10 +83,12 @@ export default {
       appId: '64aaf5b71da8c0001799c0054eea79ca',
       opacity: 0.5
     });
+    //define map layer selectors
     const baseMaps = {
       Street: mapStreet,
       Detailed: mapDetailed
     };
+    //define OWM layer selector
     const overlayMaps = {
       Precipitation: precipitationLayer,
       Temperature: temperatureLayer,
@@ -91,25 +97,26 @@ export default {
       Clouds: cloudLayer,
       Pressure: pressureLayer
     };
+    //define map
     const map = L.map('map', {
       center: this.getCoords,
       zoom: 4,
       layers: [mapStreet, mapDetailed]
     });
-
+    //add pin to map at city coordinates
     L.marker(this.getCoords)
       .addTo(map)
       .bindPopup(`${this.cityCoords.name}, ${this.stateOrCountry}`)
       .openPopup();
-
+    //adjust view when city changes
     map.setView(new L.LatLng(this.getCoords[0], this.getCoords[1]), 5);
-
+    //add OWM tile layers to map
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(
       map
     );
-
+    //add map layers to map
     L.control.layers(baseMaps, overlayMaps).addTo(map);
-
+    //add location toggle to map
     map.addControl(
       L.control.locate({
         locateOptions: {

@@ -1,5 +1,6 @@
 <template>
   <div class="dropdown-container">
+    <!--show dropdown when clicked-->
     <div
       class="dropdown is-left"
       :class="{ 'is-active': activeStateDropdown }"
@@ -11,6 +12,7 @@
           aria-haspopup="true"
           aria-controls="dropdown-menu3"
         >
+          <!--format state text-->
           <span>{{ stateCase(stateDropdownText) }}</span>
           <span class="icon is-right" id="icon">
             <i class="fa fa-angle-down"></i>
@@ -24,6 +26,7 @@
         role="menu"
         style="animation-duration: 1s"
       >
+        <!--loop over state array and select when clicked-->
         <div class="dropdown-content" id="dropdown-flex">
           <a
             href="#"
@@ -39,7 +42,7 @@
       </div>
     </div>
     <h3 class="pl-2 pr-2 pt-1 is-size-5 has-text-weight-semibold">OR</h3>
-
+    <!--show dropdown when clicked-->
     <div
       class="dropdown is-right"
       :class="{ 'is-active': activeCountryDropdown }"
@@ -59,6 +62,7 @@
       </div>
       <div class="dropdown-menu" id="dropdown-menu3" role="menu">
         <div class="dropdown-content" id="dropdown-flex">
+          <!--loop over countries and select when clicked-->
           <a
             href="#"
             class="dropdown-item"
@@ -78,7 +82,6 @@
 <script>
 import worldCountries from '../../public/countries.js';
 import states from '../../public/states.js';
-import { mapGetters } from 'vuex';
 
 export default {
   name: 'DropdownComponent',
@@ -94,10 +97,9 @@ export default {
       countryDropdownText: 'Select Country'
     };
   },
-  computed: {
-    ...mapGetters(['darkMode'])
-  },
+
   methods: {
+    //fix case on states, originally all uppercase
     stateCase(state) {
       return state
         .toLowerCase()
@@ -110,8 +112,10 @@ export default {
       state.isActive = true;
       this.state = state.abbreviation;
       this.stateDropdownText = state.name;
+      //set country to null since both can not be selected at once
       this.country = null;
       this.countryDropdownText = 'Select Country';
+      //send selected state to home view component
       this.$emit('selectState', { state: this.state });
     },
     selectCountryDropdownItem(country) {
@@ -119,8 +123,10 @@ export default {
       country.isActive = true;
       this.country = country.abbreviation;
       this.countryDropdownText = country.name;
+      //set state to null since both can not be selected at once
       this.state = null;
       this.stateDropdownText = 'Select State';
+      //send selected country to home component
       this.$emit('selectCountry', { country: this.country });
     },
     toggleStateDropdown() {

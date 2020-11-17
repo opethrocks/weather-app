@@ -1,15 +1,13 @@
 <template>
-  <div id="app" :class="{ 'dark-theme': darkMode }">
+  <div id="app">
+    <!--error notifications-->
     <notifications
       classes="notification"
       type="error"
       position="top center"
       max="1"
     />
-    <!-- <label class="checkbox has-text-weight-bold">
-      Dark Mode
-      <input type="checkbox" @change="toggleTheme" />
-    </label> -->
+    <!--vue router nav links-->
     <div id="nav">
       <router-link to="/">Conditions</router-link> |
       <router-link to="/weather-maps">Maps</router-link>
@@ -19,25 +17,6 @@
     </keep-alive>
   </div>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      darkMode: false
-    };
-  },
-
-  methods: {
-    toggleTheme() {
-      this.darkMode === false
-        ? (this.darkMode = true)
-        : (this.darkMode = false);
-      this.$store.dispatch('setTheme', this.darkMode);
-    }
-  }
-};
-</script>
 
 <style lang="scss">
 .container {
@@ -50,10 +29,7 @@ export default {
   text-align: center;
   height: 100vh;
 }
-.dark-theme {
-  background-color: #2d2d2e;
-  color: #ffffff;
-}
+
 .notification {
   color: #ffffff;
   .notification-title {
@@ -79,11 +55,5 @@ export default {
       color: #0097cc;
     }
   }
-}
-#footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 30px; /* Height of the footer */
 }
 </style>

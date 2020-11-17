@@ -18,9 +18,10 @@
         </span>
       </div>
     </div>
-
+    <!--show autocomplete box when autocomplete data is recieved from server-->
     <div class="box" v-if="autoCompleteData && isActive">
       <ul>
+        <!--loop over autocomplete data and set selected city when clicked-->
         <li v-for="match in autoCompleteData" :key="match.id">
           <a
             class="has-text-weight-semibold"
@@ -35,8 +36,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 export default {
   name: 'InputComponent',
   data() {
@@ -45,12 +44,7 @@ export default {
       input: null
     };
   },
-  computed: {
-    ...mapGetters(['darkMode']),
-    changeTheme() {
-      return this.selectTheme();
-    }
-  },
+
   props: {
     autoCompleteData: {
       type: Array,
@@ -60,6 +54,7 @@ export default {
     }
   },
   methods: {
+    //synchronize input with home component
     newInput() {
       this.isActive = true;
       if (this.input === '') {
@@ -68,6 +63,7 @@ export default {
       }
       this.$emit('newInput', this.input);
     },
+    //set city when clicked
     selectCity($event) {
       this.input = $event;
       this.$emit('selectCity', this.input);
@@ -79,11 +75,6 @@ export default {
       if (this.input === '') {
         this.$emit('newInput', this.input);
       }
-    },
-    selectTheme() {
-      return this.darkMode === true
-        ? (this.currentTheme = 'dark')
-        : (this.currentTheme = 'light');
     }
   }
 };

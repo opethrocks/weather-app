@@ -19,8 +19,7 @@ export default new Vuex.Store({
         lat: 16.773479
       }
     },
-    autoComplete: null,
-    darkMode: false
+    autoComplete: null
   },
   mutations: {
     ADD_WEATHER(state, payload) {
@@ -34,10 +33,7 @@ export default new Vuex.Store({
       let unit = payload;
       state.selectedUnits = unit;
     },
-    DELETE_CITY(state) {
-      state.currentWeather = null;
-      state.weatherForecast = null;
-    },
+
     ADD_CITY(state, payload) {
       state.currentCity = payload;
     },
@@ -52,17 +48,13 @@ export default new Vuex.Store({
     ADD_CITY_COORDS(state, payload) {
       state.cityCoords = payload;
     },
+    //used to close the autocomplete box
     REMOVE_AC(state) {
       state.autoComplete = null;
-    },
-    SET_THEME(state, payload) {
-      state.darkMode = payload;
     }
   },
   actions: {
-    deleteCity({ commit }) {
-      commit('DELETE_CITY');
-    },
+    //send selected city, state and country to server search database for city
     addCity({ commit }, payload) {
       let city = payload.city;
       let state = payload.state;
@@ -74,10 +66,12 @@ export default new Vuex.Store({
           data: { city: city, state: state, country: country }
         })
         .then((response) => {
+          //get city code to use with OWM api for accurate results
           let cityCode = response.data.id;
           const apiKey = process.env.VUE_APP_API_KEY;
+          //add coordinates for map pin
           commit('ADD_CITY_COORDS', response.data);
-
+          //get forecast weather data for location
           axios({
             method: 'GET',
             url: `https://api.openweathermap.org/data/2.5/forecast?id=${cityCode}&appid=${apiKey}`,
@@ -89,8 +83,10 @@ export default new Vuex.Store({
               commit('ADD_FORECAST', response.data);
               commit('SET_UNIT', unit);
             })
+            //error notification from forecast api call
             .catch((error) => {
               if (error.response) {
+                //show error notifictions
                 Vue.notify({
                   type: 'error',
                   title: 'An error occurred',
@@ -98,7 +94,7 @@ export default new Vuex.Store({
                 });
               }
             });
-
+          //get current weather data for location
           axios({
             method: 'GET',
             url: `https://api.openweathermap.org/data/2.5/weather?id=${cityCode}&appid=${apiKey}`,
@@ -110,6 +106,7 @@ export default new Vuex.Store({
               commit('ADD_WEATHER', response.data);
               commit('SET_UNIT', unit);
             })
+            //error notification from OWM api call
             .catch((error) => {
               if (error.response) {
                 Vue.notify({
@@ -121,6 +118,7 @@ export default new Vuex.Store({
             });
           commit('ADD_CITY', response.data);
         })
+        //error notification from server
         .catch((error) => {
           if (error.response) {
             Vue.notify({
@@ -131,6 +129,7 @@ export default new Vuex.Store({
           }
         });
     },
+    //autocomplete data from server
     getAutoComplete({ commit }, payload) {
       let input = payload.input;
       let state = payload.state;
@@ -159,12 +158,9 @@ export default new Vuex.Store({
           }
         });
     },
-
+    //Boolean for toggling forcast widget
     toggleForecast({ commit }) {
       commit('TOGGLE_FORECAST');
-    },
-    setTheme({ commit }, payload) {
-      commit('SET_THEME', payload);
     }
   },
 
@@ -175,7 +171,6 @@ export default new Vuex.Store({
     toggleForecast: (state) => state.isForecastActive,
     currentCity: (state) => state.currentCity,
     autoCompleteData: (state) => state.autoComplete,
-    cityCoords: (state) => state.cityCoords,
-    darkMode: (state) => state.darkMode
+    cityCoords: (state) => state.cityCoords
   }
 });
